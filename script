@@ -1,0 +1,60 @@
+from flask import Flask, render_template
+import networkx as nx
+
+#Create an instance of the Flask class 
+app = Flask(__name__) 
+  
+# Create a network graph 
+G = nx.Graph() 
+  
+# Add nodes to the graph 
+G.add_node("A") 
+G.add_node("B") 
+G.add_node("C") 
+
+# Add edges to the graph 
+G.add_edge("A", "B") 
+G.add_edge("B", "C") 
+
+ # Define route for home page  
+@app.route('/')               
+
+# Home page route  
+def home():            
+
+# Function to render home page template    
+return render_template('index.html', graph=G)  
+
+ # Define route for adding node to graph   
+ @app.route('/add-node')    
+ 
+def addNode():        
+  G.add_node("D")     
+  return render_template('index.html', graph=G)
+
+
+@app.route('/add-edge')    
+def addEdge():    
+  G.add_edge("A", "D")     
+return render_template('index.html', graph=G)
+
+@app.route('/query-node')    
+def queryNode():        
+  if nx.has_node(G, "A"):      
+  print("Node A exists in Graph G.")     
+  else:     
+  print("Node A does not exist in Graph G.")     
+  
+return render_template('index.html',graph=G)
+
+@app.route('/query-edge')    
+def queryEdge():    
+  if nx.has_edge(G, "A", "B"):       
+  print("Edge between Node A and Node B exists in Graph G.")     
+  else:      
+  print("Edge between Node A and Node B does not exist in Graph G.")     
+return render_template('index
+
+
+
+
